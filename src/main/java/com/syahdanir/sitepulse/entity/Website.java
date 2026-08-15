@@ -4,8 +4,11 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Website extends PanacheEntity{
@@ -29,4 +32,11 @@ public class Website extends PanacheEntity{
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
+    @OneToMany(
+        mappedBy = "website",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    public List<HealthCheck> healthChecks;
 }

@@ -1,7 +1,9 @@
 package com.syahdanir.sitepulse.resource;
 
+import com.syahdanir.sitepulse.entity.HealthCheck;
 import com.syahdanir.sitepulse.entity.Website;
 import com.syahdanir.sitepulse.service.WebsiteService;
+import com.syahdanir.sitepulse.service.HealthCheckService;
 import com.syahdanir.sitepulse.dto.CreateWebsiteRequest;
 import com.syahdanir.sitepulse.dto.UpdateWebsiteRequest;
 
@@ -24,6 +26,9 @@ public class WebsiteResource {
     
     @Inject
     WebsiteService websiteService;
+
+    @Inject
+    HealthCheckService healthCheckService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -57,5 +62,12 @@ public class WebsiteResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Website updateWebsite(@PathParam("id") Long id, @Valid UpdateWebsiteRequest request) {
         return websiteService.updateWebsite(id, request);
+    }
+
+    @POST
+    @Path("/{id}/check")
+    @Produces(MediaType.APPLICATION_JSON)
+    public HealthCheck checkWebsite(@PathParam("id") Long id) {
+        return healthCheckService.checkWebsite(id);
     }
 }

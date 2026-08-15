@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 
 public class UpdateWebsiteRequest {
     
-    @NotBlank
+    @NotBlank(message = "Name is Required")
     public String name;
 
-    @NotBlank
+    @NotBlank(message = "URL is Required")
     public String url;
 
     public Boolean active;
