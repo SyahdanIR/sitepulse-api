@@ -2,6 +2,10 @@ package com.syahdanir.sitepulse.resource;
 
 import com.syahdanir.sitepulse.entity.Website;
 import com.syahdanir.sitepulse.service.WebsiteService;
+import com.syahdanir.sitepulse.dto.CreateWebsiteRequest;
+import com.syahdanir.sitepulse.dto.UpdateWebsiteRequest;
+
+import jakarta.validation.Valid;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -28,9 +32,10 @@ public class WebsiteResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Website createWebsite(Website website){
-        return websiteService.createWebsite(website);
+    public Website createWebsite(@Valid CreateWebsiteRequest request){
+        return websiteService.createWebsite(request);
     }
 
     @GET
@@ -50,7 +55,7 @@ public class WebsiteResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Website updateWebsite(@PathParam("id") Long id, Website website) {
-        return websiteService.updateWebsite(id, website);
+    public Website updateWebsite(@PathParam("id") Long id, @Valid UpdateWebsiteRequest request) {
+        return websiteService.updateWebsite(id, request);
     }
 }

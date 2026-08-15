@@ -2,6 +2,9 @@ package com.syahdanir.sitepulse.service;
 
 import com.syahdanir.sitepulse.entity.Website;
 import com.syahdanir.sitepulse.repository.WebsiteRepository;
+import com.syahdanir.sitepulse.dto.CreateWebsiteRequest;
+import com.syahdanir.sitepulse.dto.UpdateWebsiteRequest;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -20,8 +23,16 @@ public class WebsiteService {
     }
 
     @Transactional
-    public Website createWebsite(Website website){
+    public Website createWebsite(CreateWebsiteRequest request){
+        
+        Website website = new Website();
+
+        website.name = request.name;
+        website.url = request.url;
+        website.active = true;
+
         websiteRepository.persist(website);
+
         return website;
     }
 
@@ -47,14 +58,14 @@ public class WebsiteService {
     }
 
     @Transactional
-    public Website updateWebsite(Long id, Website data) {
+    public Website updateWebsite(Long id, UpdateWebsiteRequest request) {
         Website website = websiteRepository.findById(id);
 
         if(website == null) {
             throw new NotFoundException("Website Not Found!");
         }
 
-        website.name = data.name;
+        website.name = request.name;
         return website;
     }
 }
