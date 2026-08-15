@@ -34,4 +34,27 @@ public class WebsiteService {
 
         return website;
     }
+
+    @Transactional
+    public void deleteWebsite(Long id) {
+        Website website = websiteRepository.findById(id);
+
+        if(website == null) {
+            throw new NotFoundException("Website Not Found!");
+        }
+
+        websiteRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Website updateWebsite(Long id, Website data) {
+        Website website = websiteRepository.findById(id);
+
+        if(website == null) {
+            throw new NotFoundException("Website Not Found!");
+        }
+
+        website.name = data.name;
+        return website;
+    }
 }
