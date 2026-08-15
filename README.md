@@ -1,78 +1,56 @@
-# sitepulse
+# SitePulse
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+SitePulse is a full-stack website monitoring application that monitors website availability and response performance.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+The application allows users to register websites, perform health checks, automatically monitor active websites, store health check history, and view website uptime statistics.
 
-## Running the application in dev mode
+> 🚧 This project is currently under development.
 
-You can run your application in dev mode that enables live coding using:
+## ✨ Features
 
-```shell script
-./mvnw quarkus:dev
-```
+- Website management (Create, Read, Update, Delete)
+- Website health checking
+- Automatic health checks using scheduled tasks
+- Health check history
+- Website uptime statistics
+- Average response time monitoring
+- HTTP status code monitoring
+- RESTful API
+- PostgreSQL database persistence
+- Response DTO for clean API responses
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+## 🛠️ Tech Stack
 
-## Packaging and running the application
+### Backend
 
-The application can be packaged using:
+- **Java 21**
+- **Quarkus**
+- **RESTEasy Reactive**
+- **Hibernate ORM with Panache**
+- **PostgreSQL**
+- **Maven**
 
-```shell script
-./mvnw package
-```
+### Frontend
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+- **Vue 3**
+- **TypeScript**
+- **Pinia**
+- **Vue Router**
+- **Axios**
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+> The frontend is planned and currently under development.
 
-If you want to build an _über-jar_, execute the following command:
+## 🏗️ Architecture
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
+SitePulse follows a layered backend architecture:
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/sitepulse-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplified JPA/Hibernate data access layer with active record and repository patterns
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+```text
+Resource
+   ↓
+Service
+   ↓
+Repository
+   ↓
+Entity
+   ↓
+PostgreSQL
