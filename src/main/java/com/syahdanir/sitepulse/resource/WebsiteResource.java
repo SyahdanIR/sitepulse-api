@@ -5,7 +5,10 @@ import com.syahdanir.sitepulse.entity.Website;
 import com.syahdanir.sitepulse.service.WebsiteService;
 import com.syahdanir.sitepulse.service.HealthCheckService;
 import com.syahdanir.sitepulse.dto.CreateWebsiteRequest;
+import com.syahdanir.sitepulse.dto.HealthCheckResponse;
 import com.syahdanir.sitepulse.dto.UpdateWebsiteRequest;
+import com.syahdanir.sitepulse.dto.WebsiteResponse;
+import com.syahdanir.sitepulse.dto.WebsiteStatsResponse;
 
 import jakarta.validation.Valid;
 import jakarta.inject.Inject;
@@ -32,7 +35,7 @@ public class WebsiteResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Website> getAllWebsites() {
+    public List<WebsiteResponse> getAllWebsites() {
         return websiteService.getAllWebsites();
     }
 
@@ -69,5 +72,23 @@ public class WebsiteResource {
     @Produces(MediaType.APPLICATION_JSON)
     public HealthCheck checkWebsite(@PathParam("id") Long id) {
         return healthCheckService.checkWebsite(id);
+    }
+
+    @GET
+    @Path("/{id}/health-checks")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<HealthCheckResponse> getHealthChecks(
+        @PathParam("id") Long id
+    ) {
+        return healthCheckService.getHealthChecks(id);
+    }
+
+    @GET
+    @Path("/{id}/stats")
+    @Produces(MediaType.APPLICATION_JSON)
+    public WebsiteStatsResponse getWebsiteStats(
+        @PathParam("id") Long id
+    ) {
+        return healthCheckService.getWebsiteStats(id);
     }
 }

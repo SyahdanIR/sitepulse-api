@@ -4,6 +4,7 @@ import com.syahdanir.sitepulse.entity.Website;
 import com.syahdanir.sitepulse.repository.WebsiteRepository;
 import com.syahdanir.sitepulse.dto.CreateWebsiteRequest;
 import com.syahdanir.sitepulse.dto.UpdateWebsiteRequest;
+import com.syahdanir.sitepulse.dto.WebsiteResponse;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -18,8 +19,11 @@ public class WebsiteService {
     @Inject
     WebsiteRepository websiteRepository;
 
-    public List<Website> getAllWebsites(){
-        return websiteRepository.listAll();
+    public List<WebsiteResponse> getAllWebsites(){
+        return websiteRepository.listAll()
+            .stream()
+            .map(this::toResponse)
+            .toList();
     }
 
     @Transactional
@@ -67,5 +71,17 @@ public class WebsiteService {
 
         website.name = request.name;
         return website;
+    }
+
+    public WebsiteResponse toResponse(Website website){
+
+        WebsiteResponse response = new WebsiteResponse();
+
+        response.id = website.id;
+        response.name = website.name;
+        response.url = website.url;
+        response.active = website.active;
+
+        return response;
     }
 }
